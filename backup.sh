@@ -20,16 +20,16 @@ CURRENT_DATE=$(date +%Y-%m-%d)
 BACKUP_FOLDER=$(date --date="${CURRENT_DATE} - 2 days" +%d-%m-%Y)
 BACKUP_FOLDER_ID=$(gdrive list --query " '${PARENT_FOLDER}' in parents" | grep "${BACKUP_FOLDER}" | sed -e "s/\(.*\)\s\s\s${BACKUP_FOLDER}.*/\1/")
 
-[ ! -z ${BACKUP_FOLDER_ID} ] && gdrive delete -r ${BACKUP_FOLDER_ID}
+[ ! -z "${BACKUP_FOLDER_ID}" ] && gdrive delete -r ${BACKUP_FOLDER_ID}
 
 # Dump file
 mongodump --host ${DB_HOST} -u ${DB_USER} -p ${DB_PASS} -d ${DB_NAME} --archive=${DB_FILE}
 
 # Upload file to Google Drive
 UPLOAD_FOLDER=$(date +%d-%m-%Y)
-UPLOAD_FOLDER_ID=$(gdrive list --query " '${PARENT_FOLDER}' in parents" | grep "${UPLOAD_FOLDER}" | sed -e "s/\(.*\)\s\s\s${UPLOAD_FOLDER}.*/\1/")
+UPLOAD_FOLDER_ID=$(gdrive list --query " '${PARENT_FOLDER}' in parents" | grep "dir" | grep "${UPLOAD_FOLDER}" | sed -e "s/\(.*\)\s\s\s${UPLOAD_FOLDER}.*/\1/")
 
-[ -z ${UPLOAD_FOLDER_ID} ] && UPLOAD_FOLDER_ID=$(gdrive mkdir -p ${PARENT_FOLDER} ${UPLOAD_FOLDER} | sed -e "s/Directory\s\(.*\)\screated/\1/")
+[ -z "${UPLOAD_FOLDER_ID}" ] && UPLOAD_FOLDER_ID=$(gdrive mkdir -p ${PARENT_FOLDER} ${UPLOAD_FOLDER} | sed -e "s/Directory\s\(.*\)\screated/\1/")
 
 gdrive upload -p ${UPLOAD_FOLDER_ID} ${DB_FILE}
 
