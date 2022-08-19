@@ -21,10 +21,12 @@ DB_NAME=
 # Set default values
 DB_DATE=$(date +%d-%m-%Y_%H.%M.%S)
 DB_DEST=/tmp/mongodb/backup
-DB_FILE=${DB_DEST}/${DB_NAME}_${DB_DATE}.zip
+DB_FILE=${DB_NAME}_${DB_DATE}.zip
 
 # Create temp directory
 [ -d ${DB_DEST} ] || mkdir -p ${DB_DEST}
+
+cd ${DB_DEST}
 ##################################################
 
 
@@ -58,7 +60,7 @@ echo "==========================================="
 echo "Compress database"
 echo "==========================================="
 
-zip -r ${DB_FILE} ${DB_DEST}/${DB_NAME}
+zip -r ${DB_FILE} ${DB_NAME}
 ##################################################
 
 
@@ -83,5 +85,6 @@ echo "==========================================="
 echo "Remove temp files"
 echo "==========================================="
 
-rm -rf ${DB_DEST}/*
+rm -rf ${DB_FILE}
+rm -rf ${DB_NAME}
 ##################################################
