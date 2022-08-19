@@ -12,7 +12,7 @@ In the console you will see an authentication URL that you can click and open in
 When the URL opens in the browser, just select your account and copy the auth token that is displayed on the next screen.
 
 ### Backup Configs
-Open ***backup.sh*** and modify
+Open `backup.sh` and modify
 ```
 DB_HOST=
 DB_USER=
@@ -22,7 +22,7 @@ PARENT_FOLDER=
 ```
 
 ### Create Job
-Open ***/etc/crontab*** and add to end<br>
+Open `/etc/crontab` and add to end<br>
 ```
 0 */8   * * *   root    bash /path/to/backup.sh
 ```
