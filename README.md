@@ -24,5 +24,5 @@ PARENT_FOLDER=
 ### Create Job
 Open `/etc/crontab` and add to end<br>
 ```
-0 */8   * * *   root    bash /path/to/backup.sh
+0 */8   * * *   root    bash /path/to/backup.sh >> /var/log/mongo-backup.log 2>&1
 ```
