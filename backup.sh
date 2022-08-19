@@ -21,7 +21,7 @@ DB_NAME=
 # Set default values
 DB_DATE=$(date +%d-%m-%Y_%H.%M.%S)
 DB_DEST=/tmp/mongodb/backup
-DB_FILE=${DB_DEST}/${DB_NAME}_${DB_DATE}.gz
+DB_FILE=${DB_DEST}/${DB_NAME}_${DB_DATE}.zip
 
 # Create temp directory
 [ -d ${DB_DEST} ] || mkdir -p ${DB_DEST}
@@ -48,7 +48,17 @@ echo "==========================================="
 echo "Dump database"
 echo "==========================================="
 
-mongodump --host ${DB_HOST} -u ${DB_USER} -p ${DB_PASS} -d ${DB_NAME} --archive=${DB_FILE}
+mongodump -h=${DB_HOST} -u=${DB_USER} -p=${DB_PASS} -d=${DB_NAME} -o=${DB_DEST}
+##################################################
+
+
+
+##################################################
+echo "==========================================="
+echo "Compress database"
+echo "==========================================="
+
+zip -r ${DB_FILE} ${DB_DEST}/${DB_NAME}
 ##################################################
 
 
@@ -70,8 +80,8 @@ gdrive upload -p ${UPLOAD_FOLDER_ID} ${DB_FILE}
 
 ##################################################
 echo "==========================================="
-echo "Remove temp file"
+echo "Remove temp files"
 echo "==========================================="
 
-rm -rf ${DB_FILE}
+rm -rf ${DB_DEST}/*
 ##################################################
