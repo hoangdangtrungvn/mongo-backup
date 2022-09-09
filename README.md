@@ -28,7 +28,7 @@ Open `/etc/crontab` and add to end<br>
 ```
 In the above example will run the backup at 23 o'clock every day.
 
-# Restore database
+# Mongo Restore
 
 Step 1: Download backup file from Google Drive then extract.<br>
 Step 2: Run below command.
