@@ -24,5 +24,14 @@ PARENT_FOLDER=
 ### Create Job
 Open `/etc/crontab` and add to end<br>
 ```
-0 */8   * * *   root    bash /path/to/backup.sh >> /var/log/mongo-backup.log 2>&1
+00 23   * * *   root    bash /path/to/backup.sh >> /var/log/mongo-backup.log 2>&1
+```
+In the above example will run the backup at 23 o'clock every day.
+
+# Restore database
+
+Step 1: Download backup file from Google Drive then extract.<br>
+Step 2: Run below command.
+```
+mongorestore -h=db_host -u=db_user -d=db_name /path/to/backup/directory
 ```
